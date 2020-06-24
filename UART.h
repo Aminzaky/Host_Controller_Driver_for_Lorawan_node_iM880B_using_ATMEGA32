@@ -8,7 +8,7 @@
 #ifndef UART_H_
 #define UART_H_
 
-#include"Std_Types.h"
+
 
 int UART_VIDint(void);
 void UART_send_char(uint8 data);

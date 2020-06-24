@@ -10,8 +10,9 @@
 // Section Include Files
 //
 //------------------------------------------------------------------------------
-#include "crc16.h"
 #include "Std_Types.h"
+#include "crc16.h"
+
 
 // use fast table algorithm
 #define __CRC16_TABLE__

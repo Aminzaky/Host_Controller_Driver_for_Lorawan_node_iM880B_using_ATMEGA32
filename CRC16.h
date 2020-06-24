@@ -13,7 +13,6 @@
 // Section Defines & Declarations
 //
 //------------------------------------------------------------------------------
-#include "Std_Types.h"
 
 #define CRC16_INIT_VALUE 0xFFFF // initial value for CRC algorithem
 #define CRC16_GOOD_VALUE 0x0F47 // constant compare value for check
