@@ -14,6 +14,8 @@
 #include "CRC16.h"
 #include "SLIP.h"
 #include "UART.h"
+#include "DIO.h"
+#include "DIO_local.h"
 #include <string.h>
 
 
@@ -70,6 +72,8 @@ bool WiMOD_HCI_Init(
 	SLIP_SetRxBuffer(&rxMessage->SapID,
 			sizeof(TWiMOD_HCI_Message) - sizeof(uint16));
 // init serial device
+	DIO_voidSetPinDir(pin_D0,Input);
+	DIO_voidSetPinDir(pin_D1,Output);
 	return UART_VIDint();
 }
 //------------------------------------------------------------------------------
