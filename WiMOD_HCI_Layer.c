@@ -9,6 +9,8 @@
 // Include Files
 //
 //------------------------------------------------------------------------------
+#define SLIP_END 0xC0
+
 #include "Std_Types.h"
 #include "WiMOD_HCI_Layer.h"
 #include "CRC16.h"
@@ -113,6 +115,10 @@ int WiMOD_HCI_SendMessage(TWiMOD_HCI_Message* txMessage) {
 					+ WIMOD_HCI_MSG_FCS_SIZE);
 	// message ok ?
 	if (txLength > 0) {
+		
+		for(int i= 0; i < 40; i++){
+        	UART_send_char(SLIP_END);
+        }
 		// 4. send octet sequence over serial device
 		if (Uart_Transmit(TxBuffer, txLength) > 0) {
 			// return ok
