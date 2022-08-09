@@ -7,10 +7,10 @@
 
 #include "Std_Types.h"
 #include "Utils.h"
-#include "delay.h"
 #include "UART_loacl.h"
 #include "UART_config.h"
 #include <string.h>
+#include "DIO.h"
 
 volatile char string[100];
 static uint8 Rx_Data[20];
@@ -21,6 +21,8 @@ Uart_cfg_t const Uart_cfg[] = { { BR_115200, DL_8, Parity_None, Stop_One } };
 
 int UART_VIDint(void) {
 
+	DIO_voidSetPinDir(pin_D0,Input);
+	DIO_voidSetPinDir(pin_D1,Output);
 	uint8 Control_Register;
 
 	/*	Comment:	This function used to choose the baud rate */

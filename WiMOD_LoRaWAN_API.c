@@ -51,7 +51,7 @@ void WiMOD_LoRaWAN_Init() {
 	// init HCI layer
 	WiMOD_HCI_Init(WiMOD_LoRaWAN_Process_RxMessage, // receiver callback
 			&RxMessage); // rx message
-	LCD_vidInit4();
+	//LCD_vidInit4();
 }
 //------------------------------------------------------------------------------
 //
@@ -118,6 +118,74 @@ int WiMOD_LoRaWAN_SendCRadioData(uint8 port, uint8* srcData, int srcLength) {
 	// 4. send HCI message with payload
 	return WiMOD_HCI_SendMessage(&TxMessage);
 }
+
+//------------------------------------------------------------------------------
+//
+//  ABP_Activate
+//
+//  @brief: join network
+//
+//------------------------------------------------------------------------------
+
+int
+WiMOD_LoRaWAN_ABP_Activate(unsigned char* DeviceAddress ,unsigned char* NetworkSessionKey , unsigned char* ApplicationSessionKey)
+{
+	  // 1. init header
+
+    TxMessage.SapID     = LORAWAN_SAP_ID;
+    TxMessage.MsgID     = LORAWAN_MSG_ACTIVATE_DEVICE_REQ ;
+    TxMessage.Length    = 36;
+
+    TxMessage.Payload[0] = DeviceAddress[0] ;
+    TxMessage.Payload[1] = DeviceAddress[1] ;
+    TxMessage.Payload[2] = DeviceAddress[2] ;
+    TxMessage.Payload[3] = DeviceAddress[3] ;
+
+
+    TxMessage.Payload[4] =  (NetworkSessionKey[15]) ;
+    TxMessage.Payload[5] =  (NetworkSessionKey[14]) ;
+    TxMessage.Payload[6] =  (NetworkSessionKey[13]) ;
+    TxMessage.Payload[7] =  (NetworkSessionKey[12]) ;
+    TxMessage.Payload[8] =  (NetworkSessionKey[11]) ;
+    TxMessage.Payload[9] =  (NetworkSessionKey[10]) ;
+    TxMessage.Payload[10] = (NetworkSessionKey[9])  ;
+    TxMessage.Payload[11] = (NetworkSessionKey[8])  ;
+    TxMessage.Payload[12] = (NetworkSessionKey[7])  ;
+    TxMessage.Payload[13] = (NetworkSessionKey[6])  ;
+    TxMessage.Payload[14] = (NetworkSessionKey[5])  ;
+    TxMessage.Payload[15] = (NetworkSessionKey[4])  ;
+    TxMessage.Payload[16] = (NetworkSessionKey[3])  ;
+    TxMessage.Payload[17] = (NetworkSessionKey[2])  ;
+    TxMessage.Payload[18] = (NetworkSessionKey[1])  ;
+    TxMessage.Payload[19] = (NetworkSessionKey[0])  ;
+
+
+
+    // must check whether its Little or big Endian .
+
+
+    TxMessage.Payload[20] = (ApplicationSessionKey[15])  ;
+    TxMessage.Payload[21] = (ApplicationSessionKey[14])  ;
+    TxMessage.Payload[22] = (ApplicationSessionKey[13])  ;
+    TxMessage.Payload[23] = (ApplicationSessionKey[12])  ;
+    TxMessage.Payload[24] = (ApplicationSessionKey[11])  ;
+    TxMessage.Payload[25] = (ApplicationSessionKey[10])  ;
+    TxMessage.Payload[26] = (ApplicationSessionKey[9])  ;
+    TxMessage.Payload[27] = (ApplicationSessionKey[8])  ;
+    TxMessage.Payload[28] = (ApplicationSessionKey[7])  ;
+    TxMessage.Payload[29] = (ApplicationSessionKey[6])  ;
+    TxMessage.Payload[30] = (ApplicationSessionKey[5])  ;
+    TxMessage.Payload[31] = (ApplicationSessionKey[4])  ;
+    TxMessage.Payload[32] = (ApplicationSessionKey[3])  ;
+    TxMessage.Payload[33] = (ApplicationSessionKey[2])  ;
+    TxMessage.Payload[34] = (ApplicationSessionKey[1])  ;
+    TxMessage.Payload[35] = (ApplicationSessionKey[0])  ;
+
+
+    // 2. send HCI message without payload
+    return WiMOD_HCI_SendMessage(&TxMessage);
+}
+
 //------------------------------------------------------------------------------
 //
 // Process
